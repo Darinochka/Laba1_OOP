@@ -48,4 +48,4 @@ vector<int> CommandsMoving::get_coord() const {          // returns coordinates
 
 int CommandsMoving::get_speed() const {
     return speed;
-}   
+}

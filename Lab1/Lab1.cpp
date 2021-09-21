@@ -51,7 +51,7 @@ int main()
         b[0] = round(10 * cos(alpha) + 11);         // new_x = round(radius * cos(alpha) + prev_x
         b[1] = round(10 * sin(alpha) + 2);          // new_y = round(radius * sin(alpha) + prev_y
         assert(commands3.set_radius(5, 10) == b);
-        
+
         cout << "Testing of first task is complete!" << endl;
     }
 

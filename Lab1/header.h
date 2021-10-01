@@ -3,106 +3,121 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
+
+using namespace std;
 
 
 class CommandsMoving {
-private:
-    int x, y;                               // x and y coordinate
-    int current_time = 0;                   // measured in minutes from the beginning of the moving 
-    int speed = 0;
-
 public:
-    CommandsMoving();
+	int x, y;                               // x and y coordinate
+	int current_time = 0;                   // measured in minutes from the beginning of the moving 
+	int speed = 0;
 
-    CommandsMoving(const int& orig_x, const int& orig_y, const int& new_speed);
+	CommandsMoving();
 
-    CommandsMoving(const CommandsMoving& commands);
+	CommandsMoving(const int& orig_x, const int& orig_y, const int& new_speed);
 
-    ~CommandsMoving();
+	CommandsMoving(const CommandsMoving& commands);
 
-    std::vector<int> set_speed(const int& new_time, const int& new_speed);
+	~CommandsMoving();
 
-    std::vector<int> set_radius(const int& new_time, const int& new_radius);
+	std::vector<int> set_speed(const int& new_time, const int& new_speed);
 
-    std::vector<int> get_coord() const;
+	std::vector<int> set_radius(const int& new_time, const int& new_radius);
 
-    int get_speed() const;
+	std::vector<int> get_coord() const;
+
+	int get_speed() const;
+
+	bool operator==(const CommandsMoving& other) const;
+
+	bool operator!=(const CommandsMoving& other) const;
+
+	friend ostream& operator<<(ostream& stream, const CommandsMoving& commands);
 };
+
+ostream& operator<<(ostream& stream, const CommandsMoving& commands);
 
 
 class Queue {
 private:
-    class Node {
-    public:
-        Node* next;
-        CommandsMoving data;
+	class Node {
+	public:
+		Node* next;
+		CommandsMoving data;
 
-        Node();
-        Node(CommandsMoving data_new = CommandsMoving(), Node* next_new = nullptr);
-    };
+		Node();
 
-    class Iterator {
-    public: 
-        Node* i;
+		Node(CommandsMoving data_new = CommandsMoving(), Node* next_new = nullptr);
+	};
 
-        inline Iterator();
+	class Iterator {
+	public: 
+		Node* i;
 
-        inline Iterator(Node* other);
+		Iterator();
 
-        inline Iterator(const Iterator& other);
+		Iterator(Node* other);
 
-        inline CommandsMoving &operator*() const;
-        
-        inline CommandsMoving *operator->() const;
+		Iterator(const Iterator& other);
 
-        inline Iterator& operator++();
+		CommandsMoving &operator*() const;
+		
+		CommandsMoving *operator->() const;
 
-        inline Iterator operator++(int);
+		Iterator& operator++();
 
-        inline Iterator& operator--();
+		Iterator operator++(int);
 
-        inline Iterator operator--(int);
+		Iterator& operator--();
 
-        inline bool operator==(const Iterator& other) const;
+		Iterator operator--(int);
 
-        inline bool operator!=(const Iterator& other) const;
+		bool operator==(const Iterator& other);
 
-        inline bool operator<(const Iterator& other) const;
-        
-        inline bool operator<=(const Iterator& other) const;
-         
-        inline bool operator>(const Iterator& other) const;
-        
-        inline bool operator>=(const Iterator& other) const;
-    };
+		bool operator!=(const Iterator& other);
 
-    int size;
-    Node* tail; // tail -> null
-    Node* head; // head -> next
+		bool operator<(const Iterator& other) const;
 
+		bool operator<=(const Iterator& other) const;
+
+		bool operator>(const Iterator& other) const;
+
+		bool operator>=(const Iterator& other) const; 
+
+	};
+	int size;
+	Node* tail; // tail -> null
+	Node* head; // head -> next
 public:
-    Queue();
+	Queue();
 
-    Queue(const Queue& queue);
+	Queue(const Queue& queue);
 
-    ~Queue();
+	~Queue();
 
-    void clear();
+	void clear();
 
-    void enqueue(const CommandsMoving& data);
+	void enqueue(const CommandsMoving& data);
 
-    Iterator begin() const;
+	Iterator begin() const;
 
-    Iterator end() const;
+	Iterator end() const;
 
-    CommandsMoving dequeue();
+	CommandsMoving dequeue();
 
-    void load_file(ifstream& stream);
+	void load_file(ifstream& stream);
 
-    void save_file(ostream& stream) const;
+	void save_file(ofstream& stream) const;
 
-    int get_size() const;
+	int get_size() const;
 
+	bool operator==(const Queue& other) const;
+
+	bool operator!=(const Queue& other) const;
+
+	void print() const;
 };
 
 

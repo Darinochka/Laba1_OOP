@@ -4,7 +4,13 @@
 
 using namespace std;
 
-CommandsMoving::CommandsMoving() {                                         // default constructor
+ostream& operator<<(ostream& stream, const CommandsMoving& commands) {
+    cout << commands.get_coord()[0] << commands.get_coord()[1] << 
+        commands.get_speed() << endl;
+    return stream;
+}
+
+CommandsMoving::CommandsMoving() {                                           // default constructor
     x = 0;
     y = 0;
     speed = 0;
@@ -43,10 +49,20 @@ vector<int> CommandsMoving::set_radius(const int& new_time, const int& new_radiu
     return get_coord();
 }
 
-vector<int> CommandsMoving::get_coord() const {          // returns coordinates
+vector<int> CommandsMoving::get_coord() const {                             // returns coordinates
     return { x, y };
 }
 
 int CommandsMoving::get_speed() const {
     return speed;
+}
+
+bool CommandsMoving::operator==(const CommandsMoving& other) const{
+    return (get_coord() == other.get_coord() &&
+        get_speed() == other.get_speed());
+}
+
+bool CommandsMoving::operator!=(const CommandsMoving& other) const{
+    return (get_coord() != other.get_coord() &&
+        get_speed() != other.get_speed());
 }

@@ -10,14 +10,16 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include <fstream>
 #include "header.h"
 using namespace std;
 
+
 int main()
 {
-    // testing of first task
+    // testing of first part
     {
-        cout << "Testing of first task..." << endl;
+        cout << "Testing of first part..." << endl;
 
         CommandsMoving commands1;
         CommandsMoving commands2(0, 0, 0);
@@ -57,9 +59,29 @@ int main()
         b[1] = round(10 * sin(alpha) + 2);          // new_y = round(radius * sin(alpha) + prev_y
         assert(commands3.set_radius(5, 10) == b);
 
-        cout << "Testing of first task is complete!" << endl;
+        cout << "Testing of first part is complete!" << endl;
     }
 
+    // testing of second part
+    {
+        cout << "Testing of second part" << endl;
+
+        ifstream input("input.txt");
+
+        ifstream input2("input2.txt");
+
+        Queue queue1, queue2;
+        queue1.load_file(input);
+        queue2.load_file(input2);
+
+        queue1.print();
+        queue2.print();
+        
+        assert((queue1 == queue2) == false);
+
+        cout << "Successful!" << endl;
+
+    }
     cout << "Successful testing!" << endl;
     return 0;
 }

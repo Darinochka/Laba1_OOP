@@ -66,6 +66,14 @@ private:
         inline bool operator==(const Iterator& other) const;
 
         inline bool operator!=(const Iterator& other) const;
+
+        inline bool operator<(const Iterator& other) const;
+        
+        inline bool operator<=(const Iterator& other) const;
+         
+        inline bool operator>(const Iterator& other) const;
+        
+        inline bool operator>=(const Iterator& other) const;
     };
 
     int size;
@@ -83,9 +91,9 @@ public:
 
     void enqueue(const CommandsMoving& data);
 
-    Node* get_head() const;
+    Iterator begin() const;
 
-    Node* get_tail() const;
+    Iterator end() const;
 
     CommandsMoving dequeue();
 

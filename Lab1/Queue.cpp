@@ -5,26 +5,6 @@
 
 using namespace std;
 
-Queue::Iterator::Iterator() : i(0) {
-
-};
-
-Queue::Iterator::Iterator(Node* n) {
-    i = n;
-};
-
-Queue::Iterator::Iterator(const Iterator& other) {
-    i = other.i;
-};
-
-CommandsMoving& Queue::Iterator::operator*() const {
-    return i->data;
-};
-
-CommandsMoving* Queue::Iterator::operator->() const {
-    return &i->data;
-};
-
 
 Queue::Node::Node(CommandsMoving data_new = CommandsMoving(), Node* next_new = nullptr) {
     data = data_new;
@@ -74,12 +54,12 @@ void Queue::enqueue(const CommandsMoving& data) {          // adds to tail of qu
     size++;
 };
 
-Queue::Node* Queue:: get_head() const {
-        return head;
+Queue::Iterator Queue::begin() const {
+        return Iterator(head);
     }
 
-Queue::Node* Queue:: get_tail() const {
-        return tail;
+Queue::Iterator Queue:: end() const {
+        return Iterator(tail);
     }
 
 CommandsMoving Queue:: dequeue() {                            // delete from queue the last element

@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="CommandsMoving.cpp" />
     <ClCompile Include="Lab1.cpp" />
+    <ClCompile Include="Queue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h" />

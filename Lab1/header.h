@@ -29,4 +29,73 @@ public:
     int get_speed() const;
 };
 
+
+class Queue {
+private:
+    class Node {
+    public:
+        Node* next;
+        CommandsMoving data;
+
+        Node();
+        Node(CommandsMoving data_new = CommandsMoving(), Node* next_new = nullptr);
+    };
+
+    class Iterator {
+    public: 
+        Node* i;
+
+        inline Iterator();
+
+        inline Iterator(Node* other);
+
+        inline Iterator(const Iterator& other);
+
+        inline CommandsMoving &operator*() const;
+        
+        inline CommandsMoving *operator->() const;
+
+        inline Iterator& operator++();
+
+        inline Iterator operator++(int);
+
+        inline Iterator& operator--();
+
+        inline Iterator operator--(int);
+
+        inline bool operator==(const Iterator& other) const;
+
+        inline bool operator!=(const Iterator& other) const;
+    };
+
+    int size;
+    Node* tail; // tail -> null
+    Node* head; // head -> next
+
+public:
+    Queue();
+
+    Queue(const Queue& queue);
+
+    ~Queue();
+
+    void clear();
+
+    void enqueue(const CommandsMoving& data);
+
+    Node* get_head() const;
+
+    Node* get_tail() const;
+
+    CommandsMoving dequeue();
+
+    void load_file(ifstream& stream);
+
+    void save_file(ostream& stream) const;
+
+    int get_size() const;
+
+};
+
+
 #endif

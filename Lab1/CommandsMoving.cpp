@@ -1,6 +1,7 @@
 #include "header.h"
 #include <vector>
 #include <iostream>
+
 using namespace std;
 
 CommandsMoving::CommandsMoving() {                                         // default constructor

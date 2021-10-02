@@ -25,19 +25,8 @@ CommandsMoving* Queue::Iterator::operator->() const {
     return &i->data;
 };
 
-Queue::Iterator& Queue::Iterator::operator++() {
-    i = i->next;
-    return *this;
-}
-
 Queue::Iterator Queue::Iterator::operator++(int) {
-    Node* n = i;
-    ++i;
-    return n;
-}
-
-Queue::Iterator& Queue::Iterator::operator--() {
-    i--;
+    i = i->next;
     return *this;
 }
 
@@ -50,15 +39,26 @@ Queue::Iterator Queue::Iterator::operator--(int) {
 bool Queue::Iterator::operator==(const Iterator& other){
     Node* curr = i;
     Node* rcurr = other.i;
-
-    while (curr->next != nullptr) {
-        if (curr->data != rcurr->data) {
-            return false;
-        }
-        curr = curr->next;
-        rcurr = rcurr->next;
+    
+    if ((curr != nullptr && rcurr == nullptr) ||
+        (curr == nullptr && rcurr != nullptr)) {
+        return false;
     }
-    return true;
+    else if (curr == nullptr && rcurr == nullptr) {
+        return true;
+    }
+
+    if (get_size() == other.get_size()) {
+        while (curr->next != nullptr && rcurr->next != nullptr) {
+            if (curr->data != rcurr->data) {
+                return false;
+            }
+            curr = curr->next;
+            rcurr = rcurr->next;
+        }
+        return true;
+    }
+    return false;
 }
 
 bool Queue::Iterator::operator!=(const Iterator& other) {
@@ -70,7 +70,7 @@ bool Queue::Iterator::operator<(const Iterator& other) const {
 }
 
 bool Queue::Iterator::operator<=(const Iterator& other) const {
-    return i <= other.i;
+    return get_size() <= other.get_size();
 }
 
 bool Queue::Iterator::operator>(const Iterator& other) const {
@@ -79,4 +79,16 @@ bool Queue::Iterator::operator>(const Iterator& other) const {
 
 bool Queue::Iterator::operator>=(const Iterator& other) const {
     return i >= other.i;
+}
+
+int Queue::Iterator::get_size() const {
+    Node* curr = i;
+    int size = 0;
+
+    while (curr->next != nullptr) {
+        size++;
+        curr = curr->next;
+    }
+
+    return size;
 }

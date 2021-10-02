@@ -77,7 +77,7 @@ int main()
         queue1.print();
         queue2.print();
         
-        assert((queue1 == queue2) == false);
+        assert((queue1 == queue2) == true);
 
         cout << "Successful!" << endl;
 

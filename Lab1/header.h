@@ -86,6 +86,8 @@ private:
 
 		bool operator>=(const Iterator& other) const; 
 
+		int get_size() const;
+
 	};
 	int size;
 	Node* tail; // tail -> null

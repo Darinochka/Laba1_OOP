@@ -57,11 +57,11 @@ void Queue::enqueue(const CommandsMoving& data) {           // adds to tail of q
 };
 
 Queue::Iterator Queue::begin() const {
-    return Iterator(head);
+    return Iterator(head->next);
 }
 
 Queue::Iterator Queue::end() const {
-    return Iterator(tail);
+    return Iterator(tail->next);
 }
 
 CommandsMoving Queue::dequeue() {                          // delete from queue the first element
@@ -118,7 +118,7 @@ bool Queue::operator!=(const Queue& other) const{
 void Queue::print() const{
     Iterator iter;
 
-    for (iter = begin(); iter <= end(); iter++) {
+    for (iter = begin(); iter!=end(); iter++) {
         cout << *iter << " ";
     }
 }

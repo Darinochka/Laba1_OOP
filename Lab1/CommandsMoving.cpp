@@ -6,7 +6,7 @@ using namespace std;
 
 ostream& operator<<(ostream& stream, const CommandsMoving& commands) {
     cout << commands.get_coord()[0] << commands.get_coord()[1] << 
-        commands.get_speed() << endl;
+        commands.get_speed();
     return stream;
 }
 

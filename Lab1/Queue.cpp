@@ -24,9 +24,12 @@ Queue::Queue() {
 };
 
 Queue::Queue(const Queue& queue) {
-    size = queue.size;
-    head = queue.head;
-    tail = queue.tail;
+    Node* curr = queue.head;
+
+    while (curr->next != nullptr) {
+        curr = curr->next;
+        enqueue(curr->data);
+    }
 }
 
 Queue::~Queue() {
@@ -66,9 +69,8 @@ Queue::Iterator Queue::end() const {
 
 CommandsMoving Queue::dequeue() {                          // delete from queue first element
     Node* current = head->next;
-    CommandsMoving data = head->data;
+    CommandsMoving data = head->next->data;
 
-    delete head;
     head = current;
     head->data = CommandsMoving();
     size--;
@@ -85,9 +87,10 @@ void Queue::load_file(ifstream& stream) {
 }
 
 void Queue::save_file(ofstream& stream) const {
-    Node* current = head->next;
+    Node* current = head;
 
     while (current->next != nullptr) {
+        current = current->next;
         int x = current->data.get_coord()[0];
         int y = current->data.get_coord()[1];
 
@@ -99,7 +102,15 @@ int Queue::get_size() const {
     return size;
 };
 
-bool Queue::operator==(const Queue& other) const{
+bool Queue::operator==(const Queue& other) const {
+    if ((head == nullptr && other.head != nullptr) ||
+        (head != nullptr && other.head == nullptr)) {
+        return false;
+    }
+    else if (head == nullptr && other.head == nullptr) {
+        return true;
+    }
+
     if (get_size() == other.get_size() &&
         begin() == other.begin()) {
         return true;

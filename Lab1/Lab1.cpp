@@ -18,9 +18,8 @@ void print(const Queue& queue) {
     Queue::Iterator iter;
 
     for (iter = queue.begin(); iter != queue.end(); iter++) {
-        cout << iter << ": " << *iter << " ";
+        cout << iter << ": " << *iter << endl;
     }
-    cout << endl;
 }
 
 int main()
@@ -72,20 +71,43 @@ int main()
 
     // testing of second part
     {
-        cout << "Testing of second part" << endl;
+        cout << "Testing of second part..." << endl;
 
         ifstream input("input.txt");
-        ifstream input2("input2.txt");
+        ifstream input3("input3.txt");
+        ofstream output("output.txt");
+        ofstream output3("output3.txt");
 
-        Queue queue1, queue2;
+        Queue queue1, queue3;
         queue1.load_file(input);
-        queue2.load_file(input2);
+        queue3.load_file(input3);
 
-        print(queue1);
-        print(queue2);
-        
+        Queue queue2(queue1);
+
+        cout << "Queue 1: " << endl; print(queue1);
+        cout << "Queue 2: " << endl; print(queue2);
+        cout << "Queue 3: " << endl; print(queue3);
+
         assert((queue1 == queue2) == true);
-        assert((queue1 != queue2) == false);
+        assert((queue2 != queue3) == true);
+
+        queue1.enqueue(CommandsMoving(2, 3, 10));
+        cout << "Add (2, 3, 10) to queue1: " << endl; print(queue1);
+        cout << "Unchanged queue2: " << endl; print(queue2);
+
+        assert(queue1.dequeue() == CommandsMoving(0, 0, 1));
+        assert(queue2.dequeue() == CommandsMoving(0, 0, 1));
+
+        cout << "Saving..." << endl;
+        queue1.save_file(output);
+        queue3.save_file(output3);
+
+        cout << "Clearing..." << endl;
+        queue1.clear();
+        assert(queue1 == Queue());
+
+        queue3.clear();
+        assert(queue3 == Queue());
 
         cout << "Successful!" << endl;
 

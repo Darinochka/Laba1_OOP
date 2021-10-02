@@ -35,6 +35,12 @@
     <Text Include="input2.txt">
       <Filter>Исходные файлы</Filter>
     </Text>
+    <Text Include="output.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="output3.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h">

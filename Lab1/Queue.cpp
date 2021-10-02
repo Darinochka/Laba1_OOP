@@ -44,7 +44,7 @@ void Queue::clear() {
     tail = nullptr;
 }
 
-void Queue::enqueue(const CommandsMoving& data) {           // adds to tail of queue
+void Queue::enqueue(const CommandsMoving& data) {           // adds element to tail of queue
     if (tail == nullptr) {
         tail = new Node(data);
         head = new Node(CommandsMoving(), tail);
@@ -64,7 +64,7 @@ Queue::Iterator Queue::end() const {
     return Iterator(tail->next);
 }
 
-CommandsMoving Queue::dequeue() {                          // delete from queue the first element
+CommandsMoving Queue::dequeue() {                          // delete from queue first element
     Node* current = head->next;
     CommandsMoving data = head->data;
 
@@ -108,17 +108,5 @@ bool Queue::operator==(const Queue& other) const{
 }
 
 bool Queue::operator!=(const Queue& other) const{
-    if (get_size() != other.get_size() ||
-        begin() != other.begin()) {
-        return true;
-    }
-    return false;
-}
-
-void Queue::print() const{
-    Iterator iter;
-
-    for (iter = begin(); iter!=end(); iter++) {
-        cout << *iter << " ";
-    }
+    return !(*this == other);
 }

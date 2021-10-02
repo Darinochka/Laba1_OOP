@@ -37,9 +37,6 @@ public:
 	friend ostream& operator<<(ostream& stream, const CommandsMoving& commands);
 };
 
-ostream& operator<<(ostream& stream, const CommandsMoving& commands);
-
-
 class Queue {
 private:
 	class Node {
@@ -51,48 +48,36 @@ private:
 
 		Node(CommandsMoving data_new = CommandsMoving(), Node* next_new = nullptr);
 	};
-
+	
+	int size;
+	Node* tail; // tail -> null
+	Node* head; // head -> next
+public:
 	class Iterator {
-	public: 
+	public:
 		Node* i;
-
+		int numerator = 0;
+		
 		Iterator();
 
 		Iterator(Node* other);
 
 		Iterator(const Iterator& other);
 
-		CommandsMoving &operator*() const;
-		
-		CommandsMoving *operator->() const;
+		CommandsMoving& operator*() const;
 
-		Iterator& operator++();
+		CommandsMoving* operator->() const;
 
-		Iterator operator++(int);
-
-		Iterator& operator--();
-
-		Iterator operator--(int);
+		void operator++(int);
 
 		bool operator==(const Iterator& other);
 
 		bool operator!=(const Iterator& other);
 
-		bool operator<(const Iterator& other) const;
-
-		bool operator<=(const Iterator& other) const;
-
-		bool operator>(const Iterator& other) const;
-
-		bool operator>=(const Iterator& other) const; 
-
 		int get_size() const;
 
 	};
-	int size;
-	Node* tail; // tail -> null
-	Node* head; // head -> next
-public:
+
 	Queue();
 
 	Queue(const Queue& queue);
@@ -119,8 +104,10 @@ public:
 
 	bool operator!=(const Queue& other) const;
 
-	void print() const;
 };
 
+ostream& operator<<(ostream& stream, const CommandsMoving& commands);
+
+ostream& operator<<(ostream& stream, Queue::Iterator iter);
 
 #endif

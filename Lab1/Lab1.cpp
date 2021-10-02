@@ -14,6 +14,14 @@
 #include "header.h"
 using namespace std;
 
+void print(const Queue& queue) {
+    Queue::Iterator iter;
+
+    for (iter = queue.begin(); iter != queue.end(); iter++) {
+        cout << iter << ": " << *iter << " ";
+    }
+    cout << endl;
+}
 
 int main()
 {
@@ -67,17 +75,17 @@ int main()
         cout << "Testing of second part" << endl;
 
         ifstream input("input.txt");
-
         ifstream input2("input2.txt");
 
         Queue queue1, queue2;
         queue1.load_file(input);
         queue2.load_file(input2);
 
-        queue1.print();
-        queue2.print();
+        print(queue1);
+        print(queue2);
         
         assert((queue1 == queue2) == true);
+        assert((queue1 != queue2) == false);
 
         cout << "Successful!" << endl;
 

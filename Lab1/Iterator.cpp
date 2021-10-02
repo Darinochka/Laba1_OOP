@@ -5,16 +5,24 @@
 
 using namespace std;
 
+ostream& operator<<(ostream& stream, Queue::Iterator iter) {
+    cout << iter.numerator;
+    return stream;
+}
+
 Queue::Iterator::Iterator(){
     i = nullptr;
+    numerator = 0;
 };
 
 Queue::Iterator::Iterator(Node* n) {
     i = n;
+    numerator = 0;
 };
 
 Queue::Iterator::Iterator(const Iterator& other) {
     i = other.i;
+    numerator = other.numerator;
 };
 
 CommandsMoving& Queue::Iterator::operator*() const {
@@ -25,15 +33,9 @@ CommandsMoving* Queue::Iterator::operator->() const {
     return &i->data;
 };
 
-Queue::Iterator Queue::Iterator::operator++(int) {
+void Queue::Iterator::operator++(int) {
     i = i->next;
-    return *this;
-}
-
-Queue::Iterator Queue::Iterator::operator--(int) {
-    Node* n = i;
-    ++i;
-    return n;
+    numerator++;
 }
 
 bool Queue::Iterator::operator==(const Iterator& other){
@@ -63,22 +65,6 @@ bool Queue::Iterator::operator==(const Iterator& other){
 
 bool Queue::Iterator::operator!=(const Iterator& other) {
     return !(*this == other);
-}
-
-bool Queue::Iterator::operator<(const Iterator& other) const {
-    return i < other.i;
-}
-
-bool Queue::Iterator::operator<=(const Iterator& other) const {
-    return get_size() <= other.get_size();
-}
-
-bool Queue::Iterator::operator>(const Iterator& other) const {
-    return i > other.i;
-}
-
-bool Queue::Iterator::operator>=(const Iterator& other) const {
-    return i >= other.i;
 }
 
 int Queue::Iterator::get_size() const {

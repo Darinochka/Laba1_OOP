@@ -5,14 +5,9 @@
 #include <vector>
 #include <fstream>
 
-using namespace std;
-
 
 class CommandsMoving {
 public:
-	int x, y;                               // x and y coordinate
-	int current_time = 0;                   // measured in minutes from the beginning of the moving 
-	int speed = 0;
 
 	CommandsMoving();
 
@@ -34,7 +29,12 @@ public:
 
 	bool operator!=(const CommandsMoving& other) const;
 
-	friend ostream& operator<<(ostream& stream, const CommandsMoving& commands);
+	friend std::ostream& operator<<(std::ostream& stream, const CommandsMoving& commands);
+
+private:
+	int x, y;                               // x and y coordinate
+	int current_time = 0;                   // measured in minutes from the beginning of the moving 
+	int speed = 0;
 };
 
 class Queue {
@@ -94,9 +94,9 @@ public:
 
 	CommandsMoving dequeue();
 
-	void load_file(ifstream& stream);
+	void load_file(std::ifstream& stream);
 
-	void save_file(ofstream& stream) const;
+	void save_file(std::ofstream& stream) const;
 
 	int get_size() const;
 
@@ -106,8 +106,8 @@ public:
 
 };
 
-ostream& operator<<(ostream& stream, const CommandsMoving& commands);
+std::ostream& operator<<(std::ostream& stream, const CommandsMoving& commands);
 
-ostream& operator<<(ostream& stream, Queue::Iterator iter);
+std::ostream& operator<<(std::ostream& stream, Queue::Iterator iter);
 
 #endif

@@ -7,11 +7,11 @@
 2. Последовательность команд(очередь команд движения и поворота) : расчёт координат автомобиля в заданное время
 3. Команда поворота : текущее время, радиус поворота(положительный - против часовой стрелки, отрицательный - по часовой) */
 
+#include "header.h"
 #include <iostream>
 #include <vector>
 #include <cassert>
 #include <fstream>
-#include "header.h"
 using namespace std;
 
 void print(const Queue& queue) {

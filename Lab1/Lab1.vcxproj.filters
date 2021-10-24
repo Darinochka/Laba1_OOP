@@ -29,21 +29,27 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="input.txt">
-      <Filter>Исходные файлы</Filter>
-    </Text>
-    <Text Include="input2.txt">
-      <Filter>Исходные файлы</Filter>
-    </Text>
     <Text Include="output.txt">
       <Filter>Исходные файлы</Filter>
     </Text>
     <Text Include="output3.txt">
       <Filter>Исходные файлы</Filter>
     </Text>
+    <Text Include="input.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="input2.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
+    <Text Include="input3.txt">
+      <Filter>Исходные файлы</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header.h">
+    <ClInclude Include="CommandsMoving.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

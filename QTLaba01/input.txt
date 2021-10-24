@@ -1,0 +1,2 @@
+2 speed 4
+3 rotation 2

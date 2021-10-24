@@ -5,12 +5,12 @@
 using namespace std;
 
 ostream& operator<<(ostream& stream, const MoveCommand& command) {
-    stream << command.get_time();
+    cout << command.get_time();
     if (command.is_rotation()) {
-        stream << " rotation " << command.get_radius();
+        cout << " rotation " << command.get_radius();
     }
     else {
-        stream << " speed " << command.get_speed();
+        cout << " speed " << command.get_speed();
     }
     return stream;
 }
@@ -62,21 +62,21 @@ bool MoveCommand::operator!=(const MoveCommand& other) const{
 }
 
 Rotation::Rotation() : MoveCommand() {
-	radius = 1;
+    radius = 1;
 }
 
 Rotation::Rotation(const int& time, const int& new_radius) : MoveCommand(time, 0) {
-	radius = new_radius;
+    radius = new_radius;
 }
 
 Rotation::Rotation(const Rotation& command) : MoveCommand(command.current_time, 0) {
-	radius = command.radius;
+    radius = command.radius;
 }
 
 int Rotation::get_radius() const {
-	return radius;
+    return radius;
 }
 
 bool Rotation::is_rotation() const {
-	return true;
+    return true;
 }

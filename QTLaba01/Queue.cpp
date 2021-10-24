@@ -3,19 +3,10 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <math.h>
 
 using namespace std;
 
-
-//Queue::Node::Node(MoveCommand data_new, Node* next_new) {
-//    *data = data_new;
-//    next = next_new;
-//}
-//
-//Queue::Node::Node() {
-//    *data = MoveCommand();
-//    next = nullptr;
-//};
 
 Queue::Queue() {
     size = 0;
@@ -24,20 +15,26 @@ Queue::Queue() {
 };
 
 Queue::Queue(const Queue& queue) {
+    tail = nullptr;
     Node* curr = queue.head;
 
-    while (curr->next != nullptr) {
-        curr = curr->next;
-        enqueue(*(curr->data));
+    if (curr != nullptr) {
+        while (curr->next != nullptr) {
+            curr = curr->next;
+            enqueue(*(curr->data));
+        }
     }
-}
+    else {
+        Queue();
+    }
+};
 
 Queue::~Queue() {
     clear();
 };
 
 void Queue::clear() {
-    while (size != 0) {
+    while (size != 0 and head != nullptr) {
         Node* temp = head;
         head = head->next;
         delete temp;
@@ -45,7 +42,7 @@ void Queue::clear() {
     }
     head = nullptr;
     tail = nullptr;
-}
+};
 
 void Queue::enqueue(MoveCommand& data) {           // adds element to tail of queue
     MoveCommand *m;
@@ -70,14 +67,6 @@ void Queue::enqueue(MoveCommand& data) {           // adds element to tail of qu
     size++;
 };
 
-Queue::Iterator Queue::begin() const {
-    return Iterator(head->next);
-}
-
-Queue::Iterator Queue::end() const {
-    return Iterator(tail->next);
-}
-
 void Queue::dequeue() {                          // delete from queue first element
     Node* current = head->next;
     MoveCommand* data = head->next->data;
@@ -85,7 +74,19 @@ void Queue::dequeue() {                          // delete from queue first elem
     head = current;
     *head->data = MoveCommand();
     size--;
-}
+};
+
+Queue::Iterator Queue::begin() const {
+    return Iterator(head->next);
+};
+
+Queue::Iterator Queue::end() const {
+    return Iterator(tail->next);
+};
+
+bool Queue::empty() const {
+    return (tail == nullptr);
+};
 
 void Queue::load_file(ifstream& stream) {
     int time, move;
@@ -101,7 +102,7 @@ void Queue::load_file(ifstream& stream) {
             enqueue(m);
         }
     }
-}
+};
 
 void Queue::save_file(ofstream& stream) const {
     Node* current = head;
@@ -109,10 +110,20 @@ void Queue::save_file(ofstream& stream) const {
     while (current->next != nullptr) {
         current = current->next;
         MoveCommand& m = *current->data;
-        stream << m;
+        int time = m.get_time();
+        stream << time << " ";
+
+        if (m.is_rotation()) {
+            int radius = m.get_radius();
+            stream << "rotation " << radius << endl;
+        }
+        else {
+            int speed = m.get_speed();
+            stream << "speed " << speed << endl;
+        }
     }
-}
-    
+};
+
 int Queue::get_size() const {
     return size;
 };
@@ -143,7 +154,7 @@ vector <int> Queue::get_coord() const {
         time = new_time;
     }
     return { x, y };
-}
+};
 bool Queue::operator==(const Queue& other) const {
     if ((head == nullptr && other.head != nullptr) ||
         (head != nullptr && other.head == nullptr)) {
@@ -158,8 +169,8 @@ bool Queue::operator==(const Queue& other) const {
         return true;
     }
     return false;
-}
+};
 
 bool Queue::operator!=(const Queue& other) const{
     return !(*this == other);
-}
+};

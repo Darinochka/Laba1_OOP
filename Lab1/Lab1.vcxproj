@@ -145,11 +145,13 @@
     <ClCompile Include="Queue.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header.h" />
+    <ClInclude Include="CommandsMoving.h" />
+    <ClInclude Include="Queue.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="input.txt" />
     <Text Include="input2.txt" />
+    <Text Include="input3.txt" />
     <Text Include="output.txt" />
     <Text Include="output3.txt" />
   </ItemGroup>

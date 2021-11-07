@@ -34,7 +34,7 @@ Queue::~Queue() {
 };
 
 void Queue::clear() {
-    while (size != 0 and head != nullptr) {
+    while (!empty() and head != nullptr) {
         Node* temp = head;
         head = head->next;
         delete temp;
@@ -44,7 +44,7 @@ void Queue::clear() {
     tail = nullptr;
 };
 
-void Queue::enqueue(MoveCommand& data) {           // adds element to tail of queue
+void Queue::enqueue(MoveCommand& data) {         // adds element to tail of queue
     MoveCommand *m;
     if (data.is_rotation()) {
         m = new Rotation(*(dynamic_cast<Rotation*>(&(data))));
@@ -68,12 +68,13 @@ void Queue::enqueue(MoveCommand& data) {           // adds element to tail of qu
 };
 
 void Queue::dequeue() {                          // delete from queue first element
-    Node* current = head->next;
-    MoveCommand* data = head->next->data;
+    if (!empty()) {
+        Node* current = head->next;
 
-    head = current;
-    *head->data = MoveCommand();
-    size--;
+        head = current;
+        *head->data = MoveCommand();
+        size--;
+    }
 };
 
 Queue::Iterator Queue::begin() const {
@@ -155,6 +156,7 @@ vector <int> Queue::get_coord() const {
     }
     return { x, y };
 };
+
 bool Queue::operator==(const Queue& other) const {
     if ((head == nullptr && other.head != nullptr) ||
         (head != nullptr && other.head == nullptr)) {

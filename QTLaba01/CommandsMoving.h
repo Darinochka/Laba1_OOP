@@ -45,6 +45,8 @@ public:
 
     Rotation(const Rotation& command);
 
+    ~Rotation();
+
     int get_radius() const;
 
     bool is_rotation() const;

@@ -20,12 +20,12 @@ MoveCommand::MoveCommand() {                                           // defaul
     speed = 0;
 }
 
-MoveCommand::MoveCommand(const int& new_time, const int& new_speed) {      // initialization constructor
+MoveCommand::MoveCommand(const int& new_time, const int& new_speed) {  // initialization constructor
     current_time = new_time;
     speed = new_speed;
 }
 
-MoveCommand::MoveCommand(const MoveCommand& commands) {            // copy  constructor
+MoveCommand::MoveCommand(const MoveCommand& commands) {                // copy  constructor
     current_time = commands.current_time;
     speed = commands.speed;
 }
@@ -49,13 +49,13 @@ bool MoveCommand::is_rotation() const{
     return false;
 }
 
-bool MoveCommand::operator==(const MoveCommand& other) const{
+bool MoveCommand::operator==(const MoveCommand& other) const {
     return (get_time() == other.get_time() &&
         get_speed() == other.get_speed() &&
         get_radius() == other.get_radius());
 }
 
-bool MoveCommand::operator!=(const MoveCommand& other) const{
+bool MoveCommand::operator!=(const MoveCommand& other) const {
     return (get_time() != other.get_time() ||
         get_speed() != other.get_speed() ||
         get_radius() != other.get_radius());
@@ -71,6 +71,10 @@ Rotation::Rotation(const int& time, const int& new_radius) : MoveCommand(time, 0
 
 Rotation::Rotation(const Rotation& command) : MoveCommand(command.current_time, 0) {
     radius = command.radius;
+}
+
+Rotation::~Rotation(){
+
 }
 
 int Rotation::get_radius() const {

@@ -73,7 +73,7 @@ void MainWindow::test_dequeue(const Queue& queue, const string& queue_name) {
     ui->queue_name_change->setText(QString::fromStdString(queue_name));
     on_delete_first_clicked();
 
-    assert(queues["1"] == queue);
+    assert(queues[queue_name] == queue);
 }
 
 void MainWindow::test_comparing(const bool& true_res, const string& q_name_1, const string& q_name_2) {
@@ -133,7 +133,6 @@ void MainWindow::test() {
     vector <int> coord = queue1.get_coord();
     test_coord("1", coord);
 }
-
 
 void MainWindow::show_queues() {                    // print queues in textBrowser_2
     ui->textBrowser_2->setText("");

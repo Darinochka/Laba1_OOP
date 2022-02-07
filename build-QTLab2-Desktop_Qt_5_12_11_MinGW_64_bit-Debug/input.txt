@@ -1,5 +1,0 @@
-darina 3
-alisher 5
-dima 12
-kirill 20
-misha 1
